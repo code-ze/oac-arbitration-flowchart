@@ -130,6 +130,36 @@
             color: #5a6a85;
         }
 
+        .search-container {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+        }
+
+        .search-input {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 200px;
+        }
+
+        .search-btn {
+            margin-left: 5px;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4285f4;
+            color: white;
+            cursor: pointer;
+        }
+
         .tooltip-custom {
             position: absolute;
             background: rgba(255, 255, 255, 0.95);
@@ -147,7 +177,6 @@
             font-weight: bold;
             margin-bottom: 5px;
             font-size: 16px;
-            padding-right: 20px;
         }
 
         .tooltip-content {
@@ -161,8 +190,8 @@
 
         .tooltip-close {
             position: absolute;
-            top: 10px;
-            right: 10px;
+            top: 5px;
+            right: 5px;
             width: 20px;
             height: 20px;
             cursor: pointer;
@@ -206,6 +235,11 @@
 <body>
     <div class="header">
         <h1>OAC Arbitration Process Flowchart v3</h1>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-input" class="search-input" placeholder="Search articles or terms...">
+        <button id="search-btn" class="search-btn">Search</button>
     </div>
 
     <div class="legend">
@@ -274,7 +308,7 @@
         <div class="tooltip-title" id="tooltip-title"></div>
         <div class="tooltip-content" id="tooltip-content"></div>
         <div class="tooltip-article" id="tooltip-article"></div>
-        <div class="tooltip-close">✗</div>
+        <div class="tooltip-close" id="tooltip-close">✗</div>
     </div>
 
     <script>
@@ -291,13 +325,6 @@
         var tooltipTitle = document.getElementById('tooltip-title');
         var tooltipContent = document.getElementById('tooltip-content');
         var tooltipArticle = document.getElementById('tooltip-article');
-        var tooltipClose = document.querySelector('.tooltip-close');
-
-        // Add close button event listener
-        tooltipClose.addEventListener('click', function (e) {
-            tooltip.style.display = 'none';
-            e.stopPropagation(); // Prevent the click from propagating
-        });
 
         // Timeline text updating
         var timelineTexts = {
@@ -1195,14 +1222,10 @@
                 tooltipContent.textContent = nodeData.value;
                 tooltipArticle.textContent = nodeData.article || '';
 
-                // Get mouse position
-                var evt = params.event.event || window.event;
-                var mouseX = evt.clientX || evt.pageX;
-                var mouseY = evt.clientY || evt.pageY;
-
-                // Position tooltip at mouse position with offset
-                tooltip.style.left = (mouseX + 15) + 'px';
-                tooltip.style.top = (mouseY - 15) + 'px';
+                // Position tooltip
+                var pos = chart.convertToPixel({ seriesIndex: 0 }, [nodeData.x, nodeData.y]);
+                tooltip.style.left = (pos[0] + 20) + 'px';
+                tooltip.style.top = (pos[1] - 20) + 'px';
                 tooltip.style.display = 'block';
             }
         });
@@ -1210,13 +1233,92 @@
         // Hide tooltip when clicking elsewhere
         document.addEventListener('click', function (event) {
             var tooltip = document.getElementById('tooltip-custom');
-            // Check if click is outside tooltip and outside a node
-            if (!event.target.closest('#tooltip-custom') &&
-                event.target.nodeName !== 'path' &&
-                event.target.nodeName !== 'circle' &&
-                !event.target.closest('.ec-element')) {
+            if (!event.target.closest('#main') && !event.target.closest('#tooltip-custom')) {
                 tooltip.style.display = 'none';
             }
+        });
+
+        // Add close button functionality
+        document.querySelector('.tooltip-close').addEventListener('click', function () {
+            document.getElementById('tooltip-custom').style.display = 'none';
+        });
+
+        // Search functionality
+        document.getElementById('search-btn').addEventListener('click', function () {
+            searchNodes();
+        });
+
+        document.getElementById('search-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                searchNodes();
+            }
+        });
+
+        function searchNodes() {
+            var searchTerm = document.getElementById('search-input').value.toLowerCase();
+            if (!searchTerm) return;
+
+            // Search in all datasets
+            var datasets = [
+                { id: 'view-main', data: mainProcessData },
+                { id: 'view-emergency', data: emergencyArbitratorData },
+                { id: 'view-tribunal', data: tribunalConstitutionData },
+                { id: 'view-post-award', data: postAwardData },
+                { id: 'view-fees', data: feesData }
+            ];
+
+            // Find matching nodes
+            var found = false;
+            for (var i = 0; i < datasets.length; i++) {
+                var dataset = datasets[i];
+                for (var j = 0; j < dataset.data.nodes.length; j++) {
+                    var node = dataset.data.nodes[j];
+                    var nameMatch = node.name.toLowerCase().includes(searchTerm);
+                    var valueMatch = node.value.toLowerCase().includes(searchTerm);
+                    var articleMatch = node.article && node.article.toLowerCase().includes(searchTerm);
+
+                    if (nameMatch || valueMatch || articleMatch) {
+                        // Switch to the dataset view
+                        document.getElementById(dataset.id).click();
+
+                        // Focus on the node
+                        chart.dispatchAction({
+                            type: 'focusNodeAdjacency',
+                            seriesIndex: 0,
+                            dataIndex: j
+                        });
+
+                        // Highlight the node
+                        var pos = chart.convertToPixel({ seriesIndex: 0 }, [node.x, node.y]);
+                        var tooltip = document.getElementById('tooltip-custom');
+                        var tooltipTitle = document.getElementById('tooltip-title');
+                        var tooltipContent = document.getElementById('tooltip-content');
+                        var tooltipArticle = document.getElementById('tooltip-article');
+
+                        tooltipTitle.textContent = node.name;
+                        tooltipContent.textContent = node.value;
+                        tooltipArticle.textContent = node.article || '';
+
+                        tooltip.style.left = (pos[0] + 20) + 'px';
+                        tooltip.style.top = (pos[1] - 20) + 'px';
+                        tooltip.style.display = 'block';
+
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) break;
+            }
+
+            if (!found) {
+                alert('No matching nodes found for: ' + searchTerm);
+            }
+        }
+
+        // Enable chart to resize with window
+        window.addEventListener('resize', function () {
+            chart.resize();
         });
     </script>
 </body>
