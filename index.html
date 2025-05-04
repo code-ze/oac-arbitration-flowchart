@@ -228,6 +228,25 @@
                 box-shadow: 0 0 0 0 rgba(66, 133, 244, 0);
             }
         }
+
+        .zoom-controls {
+            display: flex;
+            margin-left: 10px;
+        }
+
+        .zoom-controls .btn {
+            margin: 5px 3px;
+            font-size: 13px;
+            padding: 8px 12px;
+        }
+
+        .btn.zoom {
+            background-color: #5c6bc0;
+        }
+
+        .btn.zoom:hover {
+            background-color: #3f51b5;
+        }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
     <script src="chartConfig.js"></script>
@@ -296,7 +315,11 @@
         <button id="view-tribunal" class="btn">Tribunal Constitution</button>
         <button id="view-post-award" class="btn">Post-Award Actions</button>
         <button id="view-fees" class="btn">Fees & Costs</button>
-        <button id="zoom-reset" class="btn secondary">Reset View</button>
+        <div class="zoom-controls">
+            <button id="zoom-in" class="btn zoom">Zoom In</button>
+            <button id="zoom-out" class="btn zoom">Zoom Out</button>
+            <button id="zoom-reset" class="btn secondary">Reset View</button>
+        </div>
     </div>
 
     <div class="timeline-info">
@@ -445,9 +468,39 @@
             setActiveButtonClass('view-fees');
         });
 
+        // Add a variable to track zoom level
+        var zoomFactor = 1.0;
+
+        // Zoom functionality
+        document.getElementById('zoom-in').addEventListener('click', function () {
+            // Increase zoom factor by 100% (double)
+            zoomFactor *= 2.0;
+
+            chart.setOption({
+                series: [{
+                    zoom: zoomFactor
+                }]
+            });
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', function () {
+            // Decrease zoom factor by 100% (half)
+            zoomFactor /= 2.0;
+
+            chart.setOption({
+                series: [{
+                    zoom: zoomFactor
+                }]
+            });
+        });
+
+        // Reset zoom to default
         document.getElementById('zoom-reset').addEventListener('click', function () {
-            chart.dispatchAction({
-                type: 'restore'
+            zoomFactor = 1.0;
+            chart.setOption({
+                series: [{
+                    zoom: zoomFactor
+                }]
             });
         });
 
