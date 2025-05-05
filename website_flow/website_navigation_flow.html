@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>OAC Website Navigation Flow</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+        }
+
+        #main {
+            width: 100%;
+            height: 800px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            padding: 15px 0;
+            background-color: #f0f6ff;
+            border-radius: 8px 8px 0 0;
+            border-bottom: 1px solid #e0e6f0;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            color: #2c3e50;
+        }
+
+        .legend {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-width: 250px;
+            opacity: 0.9;
+        }
+
+        .legend h3 {
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #2c3e50;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+            border-radius: 4px;
+        }
+
+        .legend-text {
+            font-size: 14px;
+            color: #5a6a85;
+        }
+
+        .controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-wrap: wrap;
+            max-width: 600px;
+        }
+
+        .btn {
+            margin: 5px;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            background-color: #4285f4;
+            color: white;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 14px;
+        }
+
+        .btn:hover {
+            background-color: #3367d6;
+        }
+
+        .btn.active {
+            background-color: #1a237e;
+        }
+
+        .btn.secondary {
+            background-color: #9e9e9e;
+        }
+
+        .btn.secondary:hover {
+            background-color: #757575;
+        }
+
+        .btn.zoom {
+            background-color: #5c6bc0;
+        }
+
+        .btn.zoom:hover {
+            background-color: #3f51b5;
+        }
+
+        .timeline-info {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: #fff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            font-size: 14px;
+            color: #5a6a85;
+        }
+
+        .tooltip-custom {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 10px 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            max-width: 350px;
+            font-size: 14px;
+            color: #333;
+            display: none;
+        }
+
+        .tooltip-title {
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .tooltip-content {
+            line-height: 1.4;
+        }
+
+        .tooltip-article {
+            font-style: italic;
+            color: #4285f4;
+        }
+
+        .tooltip-close {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            background: #f0f0f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            transition: background-color 0.2s;
+        }
+
+        .tooltip-close:hover {
+            background-color: #ddd;
+            color: #333;
+        }
+
+        .zoom-controls {
+            display: flex;
+            margin-left: 10px;
+        }
+
+        .zoom-controls .btn {
+            margin: 5px 3px;
+            font-size: 13px;
+            padding: 8px 12px;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+    <script src="partyFlowData.js"></script>
+    <script src="arbitratorFlowData.js"></script>
+    <script src="oacAdminFlowData.js"></script>
+    <script src="generalFlowData.js"></script>
+    <script src="caseManagementFlowData.js"></script>
+</head>
+
+<body>
+    <div class="header">
+        <h1>OAC Website Navigation Flow</h1>
+    </div>
+
+    <div class="legend">
+        <h3>Page Types</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #4caf50;"></div>
+            <div class="legend-text">Public Pages</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #ff9800;"></div>
+            <div class="legend-text">User Authentication</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #f44336;"></div>
+            <div class="legend-text">Admin Pages</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #2196f3;"></div>
+            <div class="legend-text">Arbitrator Pages</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #009688;"></div>
+            <div class="legend-text">Party Pages</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #9c27b0;"></div>
+            <div class="legend-text">Case Management</div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background-color: #673ab7;"></div>
+            <div class="legend-text">Document Management</div>
+        </div>
+        <h3>Line Types</h3>
+        <div class="legend-item">
+            <svg width="50" height="20">
+                <line x1="0" y1="10" x2="50" y2="10" stroke="#555" stroke-width="2"></line>
+                <polygon points="46,6 50,10 46,14" fill="#555"></polygon>
+            </svg>
+            <div class="legend-text">Navigation Path</div>
+        </div>
+        <div class="legend-item">
+            <svg width="50" height="20">
+                <line x1="0" y1="10" x2="50" y2="10" stroke="#555" stroke-width="2" stroke-dasharray="5,3"></line>
+                <polygon points="46,6 50,10 46,14" fill="#555"></polygon>
+            </svg>
+            <div class="legend-text">Optional Path</div>
+        </div>
+    </div>
+
+    <div class="controls">
+        <button id="view-general" class="btn active">General Flow</button>
+        <button id="view-party" class="btn">Party User Flow</button>
+        <button id="view-arbitrator" class="btn">Arbitrator User Flow</button>
+        <button id="view-admin" class="btn">OAC Admin Flow</button>
+        <button id="view-case" class="btn">Case Management</button>
+        <div class="zoom-controls">
+            <button id="zoom-in" class="btn zoom">Zoom In</button>
+            <button id="zoom-out" class="btn zoom">Zoom Out</button>
+            <button id="zoom-reset" class="btn secondary">Reset View</button>
+        </div>
+    </div>
+
+    <div class="timeline-info">
+        <div id="timeline-text">Website navigation map showing user journey flows</div>
+    </div>
+
+    <div id="main"></div>
+
+    <div class="tooltip-custom" id="tooltip-custom">
+        <div class="tooltip-title" id="tooltip-title"></div>
+        <div class="tooltip-content" id="tooltip-content"></div>
+        <div class="tooltip-article" id="tooltip-article"></div>
+        <div class="tooltip-close" id="tooltip-close">✗</div>
+    </div>
+
+    <script>
+        // Custom tooltip
+        var tooltip = document.getElementById('tooltip-custom');
+        var tooltipTitle = document.getElementById('tooltip-title');
+        var tooltipContent = document.getElementById('tooltip-content');
+        var tooltipArticle = document.getElementById('tooltip-article');
+
+        // Timeline text updating
+        var timelineTexts = {
+            'general': 'Website navigation map showing user journey flows',
+            'party': 'Party user journey: From registration to case management',
+            'arbitrator': 'Arbitrator user journey: Case assignment to award issuance',
+            'admin': 'OAC Admin user journey: User management to case oversight',
+            'case': 'Case management flow: From submission to closure'
+        };
+
+        // Create chart
+        var chart = echarts.init(document.getElementById('main'));
+
+        // Prevent default scrolling when Ctrl is pressed and focus is on the chart
+        document.getElementById('main').addEventListener('wheel', function (event) {
+            if (event.ctrlKey) {
+                event.preventDefault();
+                event.stopPropagation();
+            }
+        }, { passive: false });
+
+        // Prevent global zooming when Ctrl+scroll is used anywhere else on the page
+        document.addEventListener('wheel', function (event) {
+            if (event.ctrlKey) {
+                // Only prevent default if not in the chart area
+                if (!event.target.closest('#main')) {
+                    event.preventDefault();
+                }
+            }
+        }, { passive: false });
+
+        // Initialize with the general flow data
+        var option = {
+            series: [
+                {
+                    type: 'graph',
+                    layout: 'none',
+                    data: generalFlowData.nodes,
+                    links: generalFlowData.links,
+                    categories: [
+                        { name: 'Public Pages' },
+                        { name: 'User Authentication' },
+                        { name: 'Admin Pages' },
+                        { name: 'Arbitrator Pages' },
+                        { name: 'Party Pages' },
+                        { name: 'Case Management' },
+                        { name: 'Document Management' }
+                    ],
+                    label: {
+                        show: true,
+                        position: 'right',
+                        formatter: '{b}'
+                    },
+                    edgeSymbol: ['none', 'arrow'],
+                    edgeSymbolSize: 10,
+                    nodeSymbolSize: 30,
+                    roam: true,
+                    lineStyle: {
+                        width: 2,
+                        curveness: 0
+                    }
+                }
+            ]
+        };
+
+        // Set chart options
+        chart.setOption(option);
+
+        // Event Listeners for Buttons
+        document.getElementById('view-general').addEventListener('click', function () {
+            chart.setOption({
+                series: [{
+                    data: generalFlowData.nodes,
+                    links: generalFlowData.links
+                }]
+            });
+            document.getElementById('timeline-text').textContent = timelineTexts.general;
+            setActiveButtonClass('view-general');
+        });
+
+        document.getElementById('view-party').addEventListener('click', function () {
+            chart.setOption({
+                series: [{
+                    data: partyFlowData.nodes,
+                    links: partyFlowData.links
+                }]
+            });
+            document.getElementById('timeline-text').textContent = timelineTexts.party;
+            setActiveButtonClass('view-party');
+        });
+
+        document.getElementById('view-arbitrator').addEventListener('click', function () {
+            chart.setOption({
+                series: [{
+                    data: arbitratorFlowData.nodes,
+                    links: arbitratorFlowData.links
+                }]
+            });
+            document.getElementById('timeline-text').textContent = timelineTexts.arbitrator;
+            setActiveButtonClass('view-arbitrator');
+        });
+
+        document.getElementById('view-admin').addEventListener('click', function () {
+            chart.setOption({
+                series: [{
+                    data: oacAdminFlowData.nodes,
+                    links: oacAdminFlowData.links
+                }]
+            });
+            document.getElementById('timeline-text').textContent = timelineTexts.admin;
+            setActiveButtonClass('view-admin');
+        });
+
+        document.getElementById('view-case').addEventListener('click', function () {
+            chart.setOption({
+                series: [{
+                    data: caseManagementFlowData.nodes,
+                    links: caseManagementFlowData.links
+                }]
+            });
+            document.getElementById('timeline-text').textContent = timelineTexts.case;
+            setActiveButtonClass('view-case');
+        });
+
+        // Add a variable to track zoom level
+        var zoomFactor = 1.0;
+
+        // Zoom functionality
+        document.getElementById('zoom-in').addEventListener('click', function () {
+            // Increase zoom factor by 100% (double)
+            zoomFactor *= 2.0;
+
+            chart.setOption({
+                series: [{
+                    zoom: zoomFactor
+                }]
+            });
+        });
+
+        document.getElementById('zoom-out').addEventListener('click', function () {
+            // Decrease zoom factor by 100% (half)
+            zoomFactor /= 2.0;
+
+            chart.setOption({
+                series: [{
+                    zoom: zoomFactor
+                }]
+            });
+        });
+
+        // Reset zoom to default
+        document.getElementById('zoom-reset').addEventListener('click', function () {
+            zoomFactor = 1.0;
+            chart.setOption({
+                series: [{
+                    zoom: zoomFactor
+                }]
+            });
+        });
+
+        // Set active button class
+        function setActiveButtonClass(id) {
+            document.querySelectorAll('.controls .btn').forEach(function (btn) {
+                btn.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+
+        // Custom tooltip event
+        chart.on('click', function (params) {
+            if (params.dataType === 'node') {
+                var nodeData = params.data;
+                var tooltip = document.getElementById('tooltip-custom');
+                var tooltipTitle = document.getElementById('tooltip-title');
+                var tooltipContent = document.getElementById('tooltip-content');
+                var tooltipArticle = document.getElementById('tooltip-article');
+
+                // Update tooltip content
+                tooltipTitle.textContent = nodeData.name;
+                tooltipContent.textContent = nodeData.value;
+                tooltipArticle.textContent = nodeData.features || '';
+
+                // Position tooltip
+                var pos = chart.convertToPixel({ seriesIndex: 0 }, [nodeData.x, nodeData.y]);
+                tooltip.style.left = (pos[0] + 20) + 'px';
+                tooltip.style.top = (pos[1] - 20) + 'px';
+                tooltip.style.display = 'block';
+            }
+        });
+
+        // Hide tooltip when clicking elsewhere
+        document.addEventListener('click', function (event) {
+            var tooltip = document.getElementById('tooltip-custom');
+            if (!event.target.closest('#main') && !event.target.closest('#tooltip-custom')) {
+                tooltip.style.display = 'none';
+            }
+        });
+
+        // Add close button functionality
+        document.querySelector('.tooltip-close').addEventListener('click', function () {
+            document.getElementById('tooltip-custom').style.display = 'none';
+        });
+
+        // Enable chart to resize with window
+        window.addEventListener('resize', function () {
+            chart.resize();
+        });
+    </script>
+</body>
+
+</html>
