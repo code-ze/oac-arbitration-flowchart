@@ -6,7 +6,7 @@ var feesData = {
       name: "Arbitration Costs Overview",
       symbolSize: 50,
       symbol: "circle",
-      category: 5,
+      category: 6,
       x: 0,
       y: 0,
       value:
@@ -18,7 +18,7 @@ var feesData = {
       id: "fc_registration",
       name: "Registration Fees",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 200,
       y: -200,
       value:
@@ -30,7 +30,7 @@ var feesData = {
       id: "fc_administrative",
       name: "Administrative Fees",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 200,
       y: -100,
       value:
@@ -42,7 +42,7 @@ var feesData = {
       id: "fc_deposits",
       name: "Deposits for Tribunal Costs",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 200,
       y: 0,
       value:
@@ -54,48 +54,48 @@ var feesData = {
       id: "fc_arbitrator_fees",
       name: "Arbitrator Fees",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 400,
       y: 0,
       value:
         "Based on amount in dispute, complexity, time spent, and other relevant factors. Determined by the Executive Committee.",
-      article: "Article 46.1, 46.2",
+      article: "Article 47.1, 42.2(c)",
     },
 
     {
       id: "fc_arbitrator_expenses",
       name: "Arbitrator Expenses",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 400,
       y: 100,
       value:
         "Reasonable travel, accommodation, and other expenses incurred by arbitrators are reimbursed.",
-      article: "Article 46.3",
+      article: "Article 42.2(d)",
     },
 
     {
       id: "fc_party_costs",
       name: "Party Legal & Expert Costs",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 200,
       y: 100,
       value:
         "Each party bears its own costs for legal representation, experts, witnesses, and other expenses related to presenting their case.",
-      article: "Article 42.1",
+      article: "Article 42.2(g), 46.3",
     },
 
     {
       id: "fc_service_provider",
       name: "Service Provider Costs",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 200,
       y: 200,
       value:
         "Costs of services required for proceedings (e.g., hearing rooms, translation, transcription, video conferencing) typically shared by parties.",
-      article: "Article 42.1",
+      article: "Article 42.2(e), 42.2(g)",
     },
 
     {
@@ -119,14 +119,13 @@ var feesData = {
       y: 0,
       value:
         "Parties generally pay deposits in equal shares, though one party may pay the other party's share if needed.",
-      article: "Article 45.3",
     },
 
     {
       id: "fc_adjustment",
       name: "Adjustment of Costs",
       symbolSize: 40,
-      category: 5,
+      category: 2,
       x: 600,
       y: 100,
       value:
@@ -138,7 +137,7 @@ var feesData = {
       id: "fc_additional_deposit",
       name: "Additional Deposits",
       symbolSize: 40,
-      category: 5,
+      category: 2,
       x: 800,
       y: 0,
       value:
@@ -150,7 +149,7 @@ var feesData = {
       id: "fc_final_costs",
       name: "Final Cost Determination",
       symbolSize: 40,
-      category: 5,
+      category: 3,
       x: 1000,
       y: 0,
       value:
@@ -162,31 +161,31 @@ var feesData = {
       id: "fc_allocation",
       name: "Cost Allocation",
       symbolSize: 40,
-      category: 5,
+      category: 3,
       x: 1200,
       y: 0,
       value:
         "The Tribunal has discretion to allocate costs between parties, considering circumstances including outcome and party conduct.",
-      article: "Article 42.2",
+      article: "Article 46.1, 46.2",
     },
 
     {
       id: "fc_schedule",
       name: "Fee Schedule",
       symbolSize: 40,
-      category: 5,
+      category: 6,
       x: 800,
       y: -200,
       value:
         "The OAC fee schedule is published on the official website and specifies registration fees and administrative fees based on dispute value ranges.",
-      article: "Article 43.2, 44.4",
+      article: "Annexure 1",
     },
 
     {
       id: "fc_refund",
       name: "Unexpended Fund Return",
       symbolSize: 40,
-      category: 5,
+      category: 2,
       x: 1200,
       y: 100,
       value:
@@ -199,7 +198,7 @@ var feesData = {
       name: "End of Cost Process",
       symbolSize: 50,
       symbol: "circle",
-      category: 5,
+      category: 6,
       x: 1400,
       y: 0,
       value:
