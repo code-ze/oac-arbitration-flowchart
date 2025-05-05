@@ -354,6 +354,21 @@
                     lineStyle: {
                         width: 2,
                         curveness: 0
+                    },
+                    emphasis: {
+                        focus: 'adjacency',
+                        lineStyle: {
+                            width: 3,
+                            opacity: 0.9,
+                            color: '#4285f4'
+                        },
+                        itemStyle: {
+                            shadowColor: 'rgba(0, 0, 0, 0.5)',
+                            shadowBlur: 10
+                        },
+                        label: {
+                            fontWeight: 'bold'
+                        }
                     }
                 }
             ]
@@ -367,7 +382,15 @@
             chart.setOption({
                 series: [{
                     data: generalFlowData.nodes,
-                    links: generalFlowData.links
+                    links: generalFlowData.links,
+                    emphasis: {
+                        focus: 'adjacency',
+                        lineStyle: {
+                            width: 3,
+                            opacity: 0.9,
+                            color: '#4285f4'
+                        }
+                    }
                 }]
             });
             document.getElementById('timeline-text').textContent = timelineTexts.general;
@@ -378,7 +401,15 @@
             chart.setOption({
                 series: [{
                     data: partyFlowData.nodes,
-                    links: partyFlowData.links
+                    links: partyFlowData.links,
+                    emphasis: {
+                        focus: 'adjacency',
+                        lineStyle: {
+                            width: 3,
+                            opacity: 0.9,
+                            color: '#4285f4'
+                        }
+                    }
                 }]
             });
             document.getElementById('timeline-text').textContent = timelineTexts.party;
@@ -389,7 +420,15 @@
             chart.setOption({
                 series: [{
                     data: arbitratorFlowData.nodes,
-                    links: arbitratorFlowData.links
+                    links: arbitratorFlowData.links,
+                    emphasis: {
+                        focus: 'adjacency',
+                        lineStyle: {
+                            width: 3,
+                            opacity: 0.9,
+                            color: '#4285f4'
+                        }
+                    }
                 }]
             });
             document.getElementById('timeline-text').textContent = timelineTexts.arbitrator;
@@ -400,7 +439,15 @@
             chart.setOption({
                 series: [{
                     data: oacAdminFlowData.nodes,
-                    links: oacAdminFlowData.links
+                    links: oacAdminFlowData.links,
+                    emphasis: {
+                        focus: 'adjacency',
+                        lineStyle: {
+                            width: 3,
+                            opacity: 0.9,
+                            color: '#4285f4'
+                        }
+                    }
                 }]
             });
             document.getElementById('timeline-text').textContent = timelineTexts.admin;
@@ -411,7 +458,15 @@
             chart.setOption({
                 series: [{
                     data: caseManagementFlowData.nodes,
-                    links: caseManagementFlowData.links
+                    links: caseManagementFlowData.links,
+                    emphasis: {
+                        focus: 'adjacency',
+                        lineStyle: {
+                            width: 3,
+                            opacity: 0.9,
+                            color: '#4285f4'
+                        }
+                    }
                 }]
             });
             document.getElementById('timeline-text').textContent = timelineTexts.case;
