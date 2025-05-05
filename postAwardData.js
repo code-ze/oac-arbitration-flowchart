@@ -23,7 +23,7 @@ var postAwardData = {
       y: -100,
       value:
         "Within 28 days of receipt, a party may request the Tribunal to correct computational, clerical, typographical or similar errors in the Award.",
-      article: "Article 41.1",
+      article: "Article 41.2",
     },
 
     {
@@ -35,7 +35,7 @@ var postAwardData = {
       y: 0,
       value:
         "Within 28 days of receipt, a party may request the Tribunal to give an interpretation of a specific point or part of the Award.",
-      article: "Article 41.2",
+      article: "Article 41.1",
     },
 
     {
@@ -59,7 +59,7 @@ var postAwardData = {
       y: -100,
       value:
         "The Registrar notifies the other party of the correction request and gives them opportunity to comment.",
-      article: "Article 41.1",
+      article: "Article 41.2",
     },
 
     {
@@ -71,7 +71,7 @@ var postAwardData = {
       y: 0,
       value:
         "The Registrar notifies the other party of the interpretation request and gives them opportunity to comment.",
-      article: "Article 41.2",
+      article: "Article 41.1",
     },
 
     {
@@ -95,7 +95,7 @@ var postAwardData = {
       y: -100,
       value:
         "The Tribunal decides on the correction within 28 days of receiving the request. A correction becomes part of the Award.",
-      article: "Article 41.1",
+      article: "Article 41.2",
     },
 
     {
@@ -107,7 +107,7 @@ var postAwardData = {
       y: 0,
       value:
         "The Tribunal decides on the interpretation within 28 days of receiving the request. An interpretation becomes part of the Award.",
-      article: "Article 41.2",
+      article: "Article 41.1",
     },
 
     {
@@ -131,7 +131,7 @@ var postAwardData = {
       y: -200,
       value:
         "The Tribunal may correct computational, clerical, typographical or similar errors on its own initiative within 28 days of the date of the Award.",
-      article: "Article 41.1",
+      article: "Article 41.3",
     },
 
     {
@@ -143,7 +143,7 @@ var postAwardData = {
       y: -100,
       value:
         "The Tribunal issues the correction to the Award, which becomes an integral part of the Award.",
-      article: "Article 41.1",
+      article: "Article 41.2",
     },
 
     {
@@ -155,7 +155,7 @@ var postAwardData = {
       y: 0,
       value:
         "The Tribunal issues the interpretation, which becomes an integral part of the Award.",
-      article: "Article 41.2, 41.3",
+      article: "Article 41.1",
     },
 
     {
@@ -178,7 +178,7 @@ var postAwardData = {
       x: 1000,
       y: -100,
       value: "The OAC Registrar communicates the correction to the parties.",
-      article: "Article 41.1",
+      article: "Article 41.2",
     },
 
     {
@@ -190,7 +190,7 @@ var postAwardData = {
       y: 0,
       value:
         "The OAC Registrar communicates the interpretation to the parties.",
-      article: "Article 41.2, 41.3",
+      article: "Article 41.1",
     },
 
     {
@@ -263,18 +263,7 @@ var postAwardData = {
       source: "pa_start",
       target: "pa_tribunal_correction",
       lineStyle: { type: "dashed" },
-      label: { show: true, formatter: "Tribunal initiative" },
-    },
-    {
-      source: "pa_start",
-      target: "pa_nullity",
-      lineStyle: { type: "dashed" },
-      label: { show: true, formatter: "Optional" },
-    },
-    {
-      source: "pa_start",
-      target: "pa_enforcement",
-      label: { show: true, formatter: "If no post-award requests" },
+      label: { show: true, formatter: "Optional (Tribunal)" },
     },
 
     { source: "pa_correction", target: "pa_notify_correction" },
@@ -284,29 +273,50 @@ var postAwardData = {
     { source: "pa_notify_correction", target: "pa_decide_correction" },
     { source: "pa_notify_interpretation", target: "pa_decide_interpretation" },
     { source: "pa_notify_additional", target: "pa_decide_additional" },
-    { source: "pa_tribunal_correction", target: "pa_correction_award" },
 
     { source: "pa_decide_correction", target: "pa_correction_award" },
     { source: "pa_decide_interpretation", target: "pa_interpretation_award" },
     { source: "pa_decide_additional", target: "pa_additional_award" },
+    { source: "pa_tribunal_correction", target: "pa_correction_award" },
 
-    { source: "pa_correction_award", target: "pa_communicate_correction" },
+    {
+      source: "pa_correction_award",
+      target: "pa_communicate_correction",
+    },
     {
       source: "pa_interpretation_award",
       target: "pa_communicate_interpretation",
     },
-    { source: "pa_additional_award", target: "pa_communicate_additional" },
-
-    { source: "pa_communicate_correction", target: "pa_enforcement" },
-    { source: "pa_communicate_interpretation", target: "pa_enforcement" },
-    { source: "pa_communicate_additional", target: "pa_enforcement" },
     {
-      source: "pa_nullity",
-      target: "pa_enforcement",
-      lineStyle: { type: "dashed" },
-      label: { show: true, formatter: "If challenge fails" },
+      source: "pa_additional_award",
+      target: "pa_communicate_additional",
     },
 
+    {
+      source: "pa_communicate_correction",
+      target: "pa_enforcement",
+    },
+    {
+      source: "pa_communicate_interpretation",
+      target: "pa_enforcement",
+    },
+    {
+      source: "pa_communicate_additional",
+      target: "pa_enforcement",
+    },
+    { source: "pa_start", target: "pa_enforcement" }, // Link if no post-award action
+
+    {
+      source: "pa_enforcement",
+      target: "pa_nullity",
+      lineStyle: { type: "dashed" },
+      label: { show: true, formatter: "Optional" },
+    },
+    {
+      source: "pa_nullity",
+      target: "pa_end",
+      label: { show: true, formatter: "Outcome of nullity action" },
+    },
     { source: "pa_enforcement", target: "pa_end" },
   ],
 };

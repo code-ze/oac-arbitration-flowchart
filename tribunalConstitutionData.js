@@ -34,7 +34,7 @@ var tribunalConstitutionData = {
       y: -100,
       value:
         "For a sole arbitrator, parties shall nominate jointly within the time limit set by the Registrar. If they fail to agree, the Executive Committee appoints the sole arbitrator.",
-      article: "Article 11.2",
+      article: "Article 11.1",
     },
 
     {
@@ -46,7 +46,7 @@ var tribunalConstitutionData = {
       y: 100,
       value:
         "For three arbitrators, each party nominates one. The two co-arbitrators then nominate the president. If a party fails to nominate or co-arbitrators can't agree, the Executive Committee appoints.",
-      article: "Article 11.3, 11.4, 11.5",
+      article: "Article 11.2, 11.3, 11.5",
     },
 
     {
@@ -58,7 +58,7 @@ var tribunalConstitutionData = {
       y: -100,
       value:
         "The parties jointly nominate a qualified sole arbitrator within the time limit set by the OAC Registrar.",
-      article: "Article 11.2",
+      article: "Article 11.1",
     },
 
     {
@@ -70,7 +70,7 @@ var tribunalConstitutionData = {
       y: -200,
       value:
         "If parties cannot agree on a sole arbitrator within the specified time limit, they lose their right to nominate.",
-      article: "Article 11.2",
+      article: "Article 11.1",
     },
 
     {
@@ -82,7 +82,7 @@ var tribunalConstitutionData = {
       y: 100,
       value:
         "Each party nominates one arbitrator in the Request for Arbitration and the Response, respectively.",
-      article: "Article 11.3",
+      article: "Article 11.2",
     },
 
     {
@@ -94,7 +94,7 @@ var tribunalConstitutionData = {
       y: 100,
       value:
         "The two co-arbitrators nominate the president of the tribunal within the time limit set by the OAC Registrar.",
-      article: "Article 11.4",
+      article: "Article 11.3",
     },
 
     {
@@ -130,7 +130,7 @@ var tribunalConstitutionData = {
       y: 0,
       value:
         "The Executive Committee makes any needed appointments taking into account nationality, residence, independence, impartiality, and other relevant considerations.",
-      article: "Article 11.8",
+      article: "Article 11, 12.2",
     },
 
     {
@@ -154,7 +154,7 @@ var tribunalConstitutionData = {
       y: 0,
       value:
         "Each arbitrator must disclose any circumstances likely to give rise to justifiable doubts as to their impartiality or independence.",
-      article: "Article 12.2",
+      article: "Article 12.4",
     },
 
     {
@@ -178,7 +178,7 @@ var tribunalConstitutionData = {
       y: 100,
       value:
         "Parties may challenge an arbitrator within 14 days of appointment or learning of circumstances giving rise to justifiable doubts about impartiality/independence.",
-      article: "Article 13.1, 13.2, 13.3",
+      article: "Article 13.1, 13.3, 14.1",
     },
 
     {
@@ -190,7 +190,7 @@ var tribunalConstitutionData = {
       y: 100,
       value:
         "The Executive Committee decides on challenges within 14 days unless arbitrator withdraws or other party agrees to challenge.",
-      article: "Article 13.5, 13.6",
+      article: "Article 15.1",
     },
 
     {
@@ -202,7 +202,7 @@ var tribunalConstitutionData = {
       y: 100,
       value:
         "If arbitrator dies, resigns, is successfully challenged, or removed, a replacement is appointed following the original nomination procedure.",
-      article: "Article 14.1",
+      article: "Article 15.2, 16.1, 16.2",
     },
 
     {

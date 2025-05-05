@@ -140,7 +140,7 @@ var emergencyArbitratorData = {
       y: 0,
       value:
         "Emergency Arbitrator proceedings cease when the Arbitral Tribunal is constituted. The Tribunal may reconsider, modify, terminate or annul the emergency decision.",
-      article: "Article 19.16",
+      article: "Article 19.12",
     },
   ],
   links: [
