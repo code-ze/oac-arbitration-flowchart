@@ -95,7 +95,7 @@ var generalFlowData = {
     },
     {
       name: "Case Submission",
-      x: 100,
+      x: 400,
       y: 550,
       category: 5,
       symbolSize: 45,
@@ -105,7 +105,7 @@ var generalFlowData = {
     },
     {
       name: "Document Center",
-      x: 250,
+      x: 100,
       y: 550,
       category: 6,
       symbolSize: 40,
@@ -114,7 +114,7 @@ var generalFlowData = {
     },
     {
       name: "Password Reset",
-      x: 400,
+      x: -100,
       y: 250,
       category: 1,
       symbolSize: 30,

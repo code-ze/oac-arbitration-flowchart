@@ -156,7 +156,7 @@ var arbitratorFlowData = {
     {
       name: "Account Settings",
       x: 700,
-      y: 50,
+      y: 30,
       category: 3,
       symbolSize: 40,
       value: "Manage profile, expertise, rates, and availability",
