@@ -162,15 +162,7 @@ var oacAdminFlowData = {
       value: "Create and manage document templates for orders and awards",
       features: "Rich text editor and variable substitution",
     },
-    {
-      name: "Emergency Requests",
-      x: 400,
-      y: 300,
-      category: 5,
-      symbolSize: 40,
-      value: "Manage emergency arbitrator requests and appointments",
-      features: "Expedited process tracking",
-    },
+    
   ],
   links: [
     {
